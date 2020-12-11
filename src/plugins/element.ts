@@ -1,6 +1,6 @@
 import lang from 'element-plus/lib/locale/lang/zh-cn';
 import locale from 'element-plus/lib/locale';
-
+import ElFormRenderer from '@femessage/el-form-renderer';
 import {
   ElAlert,
   ElAside,
@@ -170,9 +170,12 @@ export default (app: any) => {
   components.forEach((component: any) => {
     app.component(component.name, component);
   });
+  app.use(ElFormRenderer);
+  // app.component('el-form-renderer', ElFormRenderer);
   plugins.forEach((plugin: any) => {
     app.use(plugin);
   });
   app.config.globalProperties.$message = ElMessage;
   app.provide('$message', ElMessage);
+  console.log(app);
 };

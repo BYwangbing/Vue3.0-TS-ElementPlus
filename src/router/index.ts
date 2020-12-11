@@ -25,6 +25,18 @@ export const routes: Array<RouteRecordRaw> = [
       import(
         /* webpackChunkName: "FormRender" */ '@/views/FormRender/FormRender.vue'
       )
+  },
+  {
+    path: '/vueApi',
+    name: 'VueAPI',
+    component: () =>
+      import(/* webpackChunkName: "VueAPI" */ '@/views/VueAPI/VueAPI.vue')
+  },
+  {
+    path: '/table',
+    name: 'Table',
+    component: () =>
+      import(/* webpackChunkName: "Table" */ '@/views/Table/Table.vue')
   }
 ];
 

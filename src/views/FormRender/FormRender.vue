@@ -58,18 +58,21 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">
+      <el-button type="primary" size="mini" @click="submitForm('ruleForm')">
         立即创建
       </el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
+      <el-button size="mini" @click="resetForm('ruleForm')">重置</el-button>
     </el-form-item>
   </el-form>
+  <ElFormRender />
 </template>
 <script lang="ts">
 import { getCurrentInstance, reactive, ref, toRefs } from 'vue';
+import ElFormRender from './ElFormRender.vue';
 import { rules } from './rules';
 export default {
   name: 'FormRender',
+  components: { ElFormRender },
   setup() {
     // 创建一个DOM引用，名称必须与元素的ref属性名相同
     const refForm = ref();
@@ -84,8 +87,8 @@ export default {
     const submitForm = () => {
       refForm.value.validate((valid: boolean) => {
         if (valid) {
-          console.log(refForm.value);
           console.log(refForm.value.model);
+          console.log(refForm.value);
           console.log(state.ruleForm);
         }
       });
