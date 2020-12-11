@@ -12,17 +12,21 @@ module.exports = {
   parallel: require('os').cpus().length > 1,
   pwa: {},
   devServer: {
-    open: IS_PROD,
-    host: '0.0.0.0',
+    open: true,
+    host: 'localhost',
     port: 8080,
     https: false,
     hotOnly: false,
     proxy: {
+      //配置跨域
       '/api': {
-        target: 'http://10.38.164.248:8123/',
+        target: 'http://admin-test.mp.xiaomi.com/api',
         ws: true,
-        changeOrigin: false,
-        headers: { host: 'mp.xiaomi.com' }
+        changOrigin: true, //允许跨域
+        headers: { host: 'mp.xiaomi.com' },
+        pathRewrite: {
+          '^/api': '' //请求的时候使用这个api就可以
+        }
       }
     }
   },
@@ -38,5 +42,8 @@ module.exports = {
       .set('base', resolve('src/base'))
       .set('views', resolve('src/views'))
       .set('static', resolve('src/static'));
+  },
+  configureWebpack: config => {
+    config.externals = {};
   }
 };

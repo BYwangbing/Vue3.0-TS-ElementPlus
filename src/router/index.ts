@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Home from '@/views/Home.vue';
 
-const routes: Array<RouteRecordRaw> = [
+export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
@@ -17,6 +17,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'TodoList',
     component: () =>
       import(/* webpackChunkName: "TodoList" */ '@/views/TodoList/TodoList.vue')
+  },
+  {
+    path: '/formRender',
+    name: 'FormRender',
+    component: () =>
+      import(
+        /* webpackChunkName: "FormRender" */ '@/views/FormRender/FormRender.vue'
+      )
   }
 ];
 

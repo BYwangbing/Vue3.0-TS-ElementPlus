@@ -58,10 +58,13 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, reactive, toRefs, computed } from 'vue';
+import { ref, reactive, toRefs, computed, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
-import { TodoLists } from './options';
 import ElementPlus from '@/utils/ElementPlusExtension';
+import { get } from 'lodash';
+import { TodoLists } from './options';
+import { providerFetch } from './config';
+
 export default {
   name: 'TodoList',
   setup() {
@@ -120,6 +123,30 @@ export default {
     const remove = (index: number) => {
       state.lists.splice(index, 1);
     };
+
+    const getProviderList = async () => {
+      try {
+        const response = await providerFetch({
+          type: 'providers'
+        });
+        if (response.code === 0) {
+          console.log('response: ', response);
+          /* const options = get(response, 'data', []).map((item: any) => ({
+            label: item,
+            value: item
+          })); */
+        } else {
+          throw new Error(response.msg);
+        }
+      } catch (error) {
+        console.log('error: ', error);
+      }
+    };
+
+    onMounted(() => {
+      getProviderList();
+    });
+
     return {
       ...toRefs(state),
       add,
