@@ -31,17 +31,18 @@
     <el-pagination
       background
       v-bind="paginationConfig"
-      :page-size="getSize"
-      :total="getTotal"
-      :current-page="getCurrent"
+      :page-size="size"
+      :total="total"
+      :current-page="current"
       @current-change="nextPage => onPageChange(nextPage)"
     />
   </div>
 </template>
 <script lang="ts">
-import { reactive, toRefs, PropType } from 'vue';
+import { reactive, toRefs, PropType, SetupContext } from 'vue';
 export default {
   name: 'Table',
+  emits: ['onPageChange'],
   props: {
     loading: Boolean,
     data: Object as PropType<Record<string, any>[]>,
@@ -54,24 +55,24 @@ export default {
       layout: 'prev, pager, next'
     })
   },
-  setup(props: any, ctx: any) {
+
+  setup(props: any, ctx: SetupContext) {
     const state = reactive({
+      size: 0,
+      current: 1,
+      total: 1,
       paginationConfig: Object as PropType<PaginationConfigType>
     });
-
-    const getSize = (): number => {
-      const { size = 10 } = props.pagination || {};
-      return size;
+    const size = (): void => {
+      state.size = props.pagination.size || 10;
     };
 
-    const getCurrent = (): number => {
-      const { current = 1 } = props.pagination || {};
-      return current;
+    const current = (): void => {
+      state.current = props.pagination.current || 1;
     };
 
-    const getTotal = (): number => {
-      const { total = 1 } = props.pagination || {};
-      return total;
+    const total = (): void => {
+      state.total = props.pagination.total || 1;
     };
 
     const onSelectionChange = (rows: any) => {
@@ -85,13 +86,16 @@ export default {
         props.rowSelection.onChange(selectedKeys, rows);
       }
     };
-    ctx.emit('onPageChange');
+    const onPageChange = () => {
+      console.log(123);
+    };
+    ctx.emit('onPageChange', onPageChange);
 
     return {
       ...toRefs(state),
-      getSize,
-      getCurrent,
-      getTotal,
+      ...size,
+      ...current,
+      ...total,
       onSelectionChange
     };
   }

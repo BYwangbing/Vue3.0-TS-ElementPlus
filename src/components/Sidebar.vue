@@ -10,6 +10,8 @@
   <router-link to="/vueApi">VueAPI</router-link>
   <el-divider direction="vertical"></el-divider>
   <router-link to="/table">Table</router-link>
+  <el-divider direction="vertical"></el-divider>
+  <router-link to="/dialog">DialogBox</router-link>
   <el-divider />
 </template>
 <script lang="ts">

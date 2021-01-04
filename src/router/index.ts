@@ -37,6 +37,14 @@ export const routes: Array<RouteRecordRaw> = [
     name: 'Table',
     component: () =>
       import(/* webpackChunkName: "Table" */ '@/views/Table/Table.vue')
+  },
+  {
+    path: '/dialog',
+    name: 'DialogBox',
+    component: () =>
+      import(
+        /* webpackChunkName: "DialogBox" */ '@/views/DialogBox/DialogBox.vue'
+      )
   }
 ];
 
